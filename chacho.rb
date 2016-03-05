@@ -11,6 +11,7 @@ class Chacho < Sinatra::Base
 
   post '/' do
     data = JSON.parse(request.body.read)
+    puts data.inspect
     # requestId, timestamp, type, ...
     case data['request']['type']
     when 'LaunchRequest'
