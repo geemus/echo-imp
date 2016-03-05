@@ -11,6 +11,16 @@ class Chacho < Sinatra::Base
 
   post '/' do
     data = JSON.parse(request.body.read)
+
+    # ensure we are the intended skill recipient
+    unless data['session']['application']['applicationId'] == ENV['ECHO_APPLICATION_ID']
+      halt(400)
+    end
+    # ensure the request is within 2.5 minutes of now
+    unless (Time.now - Time.parse(data['request']['timestamp'])).abs < 150
+      halt(400)
+    end
+
     puts data.inspect
     # requestId, timestamp, type, ...
     case data['request']['type']
