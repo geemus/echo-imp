@@ -1,0 +1,2 @@
+require './chacho'
+run Chacho
