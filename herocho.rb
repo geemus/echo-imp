@@ -3,7 +3,7 @@ Bundler.require
 
 require 'json'
 
-class Chacho < Sinatra::Base
+class Herocho < Sinatra::Base
 
   use Rack::Auth::Basic, "Restricted Area" do |username, password|
     ENV['CREDENTIALS'].split(",").map {|cred| Rack::Utils.secure_compare(cred, "#{username}:#{password}")}.include?(true)

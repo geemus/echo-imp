@@ -1,2 +1,2 @@
-# chacho
-chat + echo
+# Herocho
+(Her)oku + E(cho)
