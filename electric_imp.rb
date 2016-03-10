@@ -45,13 +45,31 @@ class ElectricImp < Sinatra::Base
     when 'IntentRequest'
       # intent => { name, slots => { string => { name => string, value => string } } }
       case data['request']['intent']['name']
+      when 'HumidityIntent'
+        sensor_data = JSON.parse(Excon.get("https://agent.electricimp.com/#{ENV['ELECTRIC_IMP_AGENT']}/sensors/temperature-humidity").body)
+        humidity = sensor_data['humidity']
+        status(200)
+        body({
+          version: '1.0',
+          response: {
+            card: {
+              content:  "#{humidity}%",
+              title:    'Electric Imp Humidity',
+              type:     'Simple'
+            },
+            outputSpeech: {
+              text: "The humidity is #{humidity.round} percent.",
+              type: 'PlainText'
+            },
+            shouldEndSession: true
+          }
+        }).to_json
       when 'TemperatureIntent'
         sensor_data = JSON.parse(Excon.get("https://agent.electricimp.com/#{ENV['ELECTRIC_IMP_AGENT']}/sensors/temperature").body)
         temperature = sensor_data['temperature'] * 1.8 + 32 # convert to farenheit
         status(200)
         body({
           version: '1.0',
-          # session: {} # key/value pairs to set
           response: {
             card: {
               content:  "#{temperature}°F",
