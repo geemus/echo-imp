@@ -64,6 +64,25 @@ class ElectricImp < Sinatra::Base
             shouldEndSession: true
           }
         }).to_json
+      when 'PressureIntent'
+        sensor_data = JSON.parse(Excon.get("https://agent.electricimp.com/#{ENV['ELECTRIC_IMP_AGENT']}/sensors/pressure").body)
+        pressure = sensor_data['pressure']
+        status(200)
+        body({
+          version: '1.0',
+          response: {
+            card: {
+              content:  "#{pressure} millibars",
+              title:    'Electric Imp Pressure',
+              type:     'Simple'
+            },
+            outputSpeech: {
+              text: "The humidity is #{pressure.round} millibars.",
+              type: 'PlainText'
+            },
+            shouldEndSession: true
+          }
+        }).to_json
       when 'TemperatureIntent'
         sensor_data = JSON.parse(Excon.get("https://agent.electricimp.com/#{ENV['ELECTRIC_IMP_AGENT']}/sensors/temperature").body)
         temperature = sensor_data['temperature'] * 1.8 + 32 # convert to farenheit

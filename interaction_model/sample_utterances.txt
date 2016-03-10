@@ -1,5 +1,8 @@
 HumidityIntent to check the humidity
 HumidityIntent what is the humidity
 
+PressureIntent to check the pressure
+PressureIntent what is the pressure
+
 TemperatureIntent to check the temperature
 TemperatureIntent what is the temperature

@@ -4,6 +4,9 @@
       "intent": "HumidityIntent"
     },
     {
+      "intent": "PressureIntent"
+    },
+    {
       "intent": "TemperatureIntent"
     }
   ]
