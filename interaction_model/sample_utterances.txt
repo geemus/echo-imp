@@ -1,2 +1,3 @@
-TemperatureIntent check the temperature
+TemperatureIntent to check the temperature
 TemperatureIntent what is the temperature
+TemperatureIntent temperature
