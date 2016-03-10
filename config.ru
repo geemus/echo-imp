@@ -1,2 +1,2 @@
-require './chacho'
-run Chacho
+require './electric_imp'
+run ElectricImp

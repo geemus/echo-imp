@@ -7,5 +7,6 @@ Echo to Electric Imp bridge
 2. deploy to heroku
 3. set CREDENTIALS with `user:pass` of some sort (you'll need to include this in your skill URL like `https://user:pass@app-name.herokuapp.com`)
 4. set ECHO_APPLICATION_ID from AWS developer console for verifying request source
-5. say `echo tell {skill-name} to say hello`
+5. set ELECTRIC_IMP_AGENT from electric imp info
+5. say `echo tell {skill-name} to check temperature`
 6. ponder what awesome stuff you could build with voice integration
