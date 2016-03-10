@@ -44,29 +44,28 @@ class ElectricImp < Sinatra::Base
       }).to_json
     when 'IntentRequest'
       # intent => { name, slots => { string => { name => string, value => string } } }
-      status(200)
-      body({
-        version: '1.0',
-        # session: {} # key/value pairs to set
-        response: {
-          card: {
-            content:  'Hello World',
-            title:    'Hello World',
-            type:     'Simple'
-          },
-          outputSpeech: {
-            text: 'Hello World',
-            type: 'PlainText'
-          },
-          reprompt: {
+      case data['request']['intent']['name']
+      when 'TemperatureIntent'
+        sensor_data = JSON.parse(Excon.get("https://agent.electricimp.com/#{ENV['ELECTRIC_IMP_AGENT']}/sensors/temperature").body)
+        temperature = sensor_data['temperature'] * 1.8 + 32 # convert to farenheit
+        status(200)
+        body({
+          version: '1.0',
+          # session: {} # key/value pairs to set
+          response: {
+            card: {
+              content:  "#{temperature}°F",
+              title:    'Electric Imp Temperature',
+              type:     'Simple'
+            },
             outputSpeech: {
-              text: 'Can I help you with anything else?',
+              text: "The temperature is #{temperature} degrees.",
               type: 'PlainText'
-            }
-          },
-          shouldEndSession: true
-        }
-      }).to_json
+            },
+            shouldEndSession: true
+          }
+        }).to_json
+      end
     when 'SessionEndedRequest'
       # reason
     end
