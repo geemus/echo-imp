@@ -59,7 +59,7 @@ class ElectricImp < Sinatra::Base
               type:     'Simple'
             },
             outputSpeech: {
-              text: "The temperature is #{temperature} degrees.",
+              text: "The temperature is #{temperature.round} degrees.",
               type: 'PlainText'
             },
             shouldEndSession: true
