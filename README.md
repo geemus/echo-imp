@@ -1,5 +1,5 @@
-# Herocho
-(Her)oku + E(cho)
+# echo-imp
+Echo to Electric Imp bridge
 
 # (Rough) How To
 
